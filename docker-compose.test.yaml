@@ -1,0 +1,18 @@
+version: "3.8"
+services:
+  dev-test:
+    container_name: dev-test
+    image: postgres:13
+    ports:
+      - 5432:5432
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: secure
+      POSTGRES_DB: nestjsdb
+    networks:
+      - nest-network
+
+networks:
+  nest-network:
