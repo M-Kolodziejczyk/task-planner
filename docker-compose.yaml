@@ -30,7 +30,19 @@ services:
       - 5432
     volumes:
       - "pgdata:/var/lib/postgresql/data"
-
+  frontend:
+    container_name: frontend
+    build:
+      context: "./frontend"
+      dockerfile: Dockerfile.local
+    restart: always
+    ports:
+      - 3000:3000
+    volumes:
+      - ./frontend/src:/usr/src/app/src
+      - /usr/src/app/node_modules
+    networks:
+      - planner-network
 volumes:
   pgdata:
 
