@@ -42,6 +42,20 @@ export class AuthService {
     return tokens;
   }
 
+  async logout(userId: number) {
+    await this.prisma.user.updateMany({
+      where: {
+        id: userId,
+        hashedRt: {
+          not: null,
+        },
+      },
+      data: {
+        hashedRt: null,
+      },
+    });
+  }
+
   async refreshToken(userId: number, rt: string) {
     const user = await this.prisma.user.findUnique({
       where: {
